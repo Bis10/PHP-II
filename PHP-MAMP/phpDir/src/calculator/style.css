@@ -1,0 +1,39 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: black;
+
+}
+
+form {
+  background-color: rgb(198, 248, 232);
+  padding: 60px;
+  margin: 10px;
+  border-radius: 10%;
+  
+}
+button{
+  margin: 5px;
+  padding: 2px;
+  border-radius: 10%;
+  min-width: 70px;
+}
+#num1{
+  margin: 10px;
+}
+#num2{
+  margin: 10px;
+}
+h1{
+  font-size: 16px;
+  color: brown;
+  
+}
