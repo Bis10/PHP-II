@@ -157,7 +157,7 @@ $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             ?>
-            <h2>Edit Book</h2>
+            <h2>Edit Book Information</h2>
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                 <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                 <label for="title">Title:</label><br>
