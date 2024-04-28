@@ -59,13 +59,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
         $stmt->bind_param("i", $book_id);
 
         if ($stmt->execute()) {
-            echo "Book deleted successfully";
+            echo "Book deleted successfully!";
         } else {
             echo "Error deleting book: " . $stmt->error;
         }
         $stmt->close();
     } else {
-        echo "Invalid book ID";
+        echo "Invalid book ID!";
     }
 }
 
