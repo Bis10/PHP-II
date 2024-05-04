@@ -1,5 +1,8 @@
 <?php
-include 'DBConnect.php';
+
+ include 'DBConnect.php';
+
+$shortUrl = '';
 
 // Check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -45,16 +48,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $responseDecoded = json_decode($response, true);
         // Check if the 'link' key and 'short_url' subkey exist before trying to access it
         if (isset($responseDecoded['link']) && isset($responseDecoded['link']['short_url'])) {
-            // Output the shortened URL
+            // Get the shortened URL
             $shortUrl = $responseDecoded['link']['short_url'];
             
-            // Save the short URL in the database
+            // Save the short URL in the database if needed
             $db = new DBConnect();
             $conn = $db->connect();
             $stmt = $conn->prepare("INSERT INTO users (link) VALUES (?)");
             $stmt->execute([$shortUrl]);
-
-            echo 'Shortened URL: <a href="' . $shortUrl . '">' . $shortUrl . '</a>';
         } else {
             // Handle the case where 'short_url' key doesn't exist
             echo 'The key "short_url" does not exist in the response.';
@@ -72,14 +73,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>URL Shortener</title>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 
 <body>
     <form method="post">
         <label for="longUrl">Enter URL to shorten:</label>
-        <input type="text" id="longUrl" name="longUrl" required>
+        <input type="text" id="longUrl" name="longUrl" required onclick="hideShortenedUrl()">
         <button type="submit">Shorten URL</button>
     </form>
+
+ 
+    <?php if (!empty($shortUrl)) { ?>
+        <p id="shortenedUrl">Shortened URL: <a href="<?= $shortUrl ?>"><?= $shortUrl ?></a></p>
+    <?php } ?>
+    
+    <script>
+        function hideShortenedUrl() {
+            document.getElementById("shortenedUrl").style.display = "none";
+        }
+    </script>
 </body>
+
 
 </html>
