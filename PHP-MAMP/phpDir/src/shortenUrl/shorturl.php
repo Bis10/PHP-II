@@ -1,6 +1,12 @@
 <?php
 
  include 'DBConnect.php';
+ require __DIR__ .'/vendor/autoload.php';
+ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ ."/");
+ $dotenv->load();
+ $dotenv->required([
+    'ACCESS_TOKEN'
+ ])->notEmpty();
 
 $shortUrl = '';
 
@@ -9,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // URL to the Unelma.IO API
     $url = 'https://unelma.io/api/v1/link';
     // Access token for the Unelma.IO API
-    $accessToken = '19|LpdeM04fMNVYLzHG99jnCumlTRbnkjfAYMdWFlhp39a2f97e';
+    $accessToken = $_ENV['ACCESS_TOKEN'];
 
     // Collect the long URL from the form input
     $longUrl = $_POST['longUrl'];
